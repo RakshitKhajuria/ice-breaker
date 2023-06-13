@@ -1,6 +1,10 @@
-from langchain import Prompt,PromptTemplate
+from typing import Tuple
+
+from langchain import PromptTemplate
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
+from tp_access.linkedin import scrape_linkedin_profile
+from agents.linkedin_lookup_agent import lookup as linkedin_lookup_agent
 
 information = """
 Elon Reeve Musk is a business magnate and investor. He is the founder, CEO and chief engineer of SpaceX; angel investor, CEO and product architect of Tesla, Inc.; owner, CTO and chairman of Twitter; founder of the Boring Company and X Corp.; co-founder of Neuralink and OpenAI; and president of the philanthropic Musk Foundation. Musk is the wealthiest person in the world according to the Bloomberg Billionaires Index and Forbes's Real Time Billionaires list as of June 2023, primarily from his ownership stakes in Tesla and SpaceX, with an estimated net worth of around $225 billion according to Bloomberg and $230 billion according to Forbes.[4][5][6]
@@ -13,7 +17,7 @@ Musk has expressed views that have made him a polarizing figure. He has been cri
 
 """
 if __name__ == "__main__":
-    print("Langchain")
+    linkedin_profile_url = linkedin_lookup_agent(name="Krish Niak")
 
     summary_template = """
          given the information {information} about a person from I want you to create:
@@ -30,6 +34,8 @@ if __name__ == "__main__":
 
     llm = ChatOpenAI(temperature=1, model_name="gpt-3.5-turbo")
     chain = LLMChain(llm=llm, prompt=summary_prompt_template)
-    
+
+    linkedin_data = scra
+
     result = chain.run(information=information)
     print(result)
