@@ -1,4 +1,4 @@
-from langchain import Prompt,PromptTemplate
+from langchain import Prompt, PromptTemplate
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
 
@@ -30,6 +30,6 @@ if __name__ == "__main__":
 
     llm = ChatOpenAI(temperature=1, model_name="gpt-3.5-turbo")
     chain = LLMChain(llm=llm, prompt=summary_prompt_template)
-    
+
     result = chain.run(information=information)
     print(result)
